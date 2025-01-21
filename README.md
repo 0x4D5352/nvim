@@ -1,5 +1,7 @@
 # kickstart.nvim
 
+personal tracking of upstream as i build my own nvim again from scratch
+
 ## Introduction
 
 A starting point for Neovim that is:
