@@ -1,0 +1,80 @@
+name: Update from Upstream
+
+on:
+  schedule:
+    - cron: "0 0 * * *"  # Runs daily at midnight UTC
+  workflow_dispatch:   # Allows manual triggering
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out the current repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Set up Git configuration for committing
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      # 3. Add the external repository as remote
+      - name: Add upstream remote and fetch
+        run: |
+          git remote add upstream https://github.com/nvim-lua/kickstart.nvim.git || true
+          git fetch upstream
+
+      # 4. Check if there are new commits in upstream/master relative to our master
+      - name: Check for new upstream commits
+        id: check
+        run: |
+          # Count commits that exist in upstream/master but not in master
+          COMMITS=$(git rev-list master..upstream/master --count)
+          echo "Found $COMMITS new commit(s) in upstream/master"
+          if [ "$COMMITS" -gt 0 ]; then
+            echo "new_commits=true" >> $GITHUB_OUTPUT
+          else
+            echo "new_commits=false" >> $GITHUB_OUTPUT
+          fi
+
+      # 5. Create (or reset) the 'upstream' branch from current master
+      - name: Create or update upstream branch
+        if: steps.check.outputs.new_commits == 'true'
+        run: |
+          # This creates or resets the branch "upstream" to match master
+          git checkout -B upstream master
+
+      # 6. Attempt to merge changes from upstream/master into the 'upstream' branch
+      - name: Merge upstream changes
+        if: steps.check.outputs.new_commits == 'true'
+        id: merge
+        continue-on-error: true
+        run: |
+          git merge upstream/master --no-edit
+
+      # 7a. If the merge succeeded, open a pull request from upstream to master
+      - name: Create pull request
+        if: steps.merge.outcome == 'success'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.MERGE_GITHUB_TOKEN }}
+          branch: upstream
+          base: master
+          title: "Merge upstream changes"
+          body: "Automated PR: Successfully merged changes from upstream/master."
+
+      # 7b. If the merge failed, create an issue to notify for manual merge
+      - name: Create issue for manual merge
+        if: steps.merge.outcome != 'success'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: "Manual merge required for upstream changes",
+              body: "The automated merge from upstream/master into the 'upstream' branch encountered conflicts. Please resolve these conflicts manually."
+            })
+
