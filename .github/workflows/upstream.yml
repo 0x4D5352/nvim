@@ -68,10 +68,10 @@ jobs:
       # 7b. If the merge failed, create an issue to notify for manual merge
       - name: Create issue for manual merge
         if: steps.merge.outcome != 'success'
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
-            github.issues.create({
+            github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: "Manual merge required for upstream changes",
