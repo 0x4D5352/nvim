@@ -951,5 +951,12 @@ require('lazy').setup({
   },
 })
 
+-- additional config
+-- NOTE: Ensures that when exiting NeoVim, Zellij returns to normal mode
+vim.api.nvim_create_autocmd('VimLeave', {
+  pattern = '*',
+  command = 'silent !zellij action switch-mode normal',
+})
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
