@@ -683,6 +683,13 @@ require('lazy').setup({
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        nu = { 'topiary_nu' },
+      },
+      formaters = {
+        topiary_nu = {
+          command = 'topiary',
+          args = { 'format', '--language', 'nu' },
+        },
       },
     },
   },
