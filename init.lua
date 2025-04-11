@@ -679,16 +679,36 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        python = {},
+        python = { 'ruff' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
         nu = { 'topiary_nu' },
+        bash = { 'topiary_sh' },
+        json = { 'topiary_json' },
+        nickel = { 'topiary_ncl' },
+        css = { 'topiary_css' },
       },
-      formaters = {
+      formatters = {
         topiary_nu = {
           command = 'topiary',
           args = { 'format', '--language', 'nu' },
+        },
+        topiary_sh = {
+          command = 'topiary',
+          args = { 'format', '--language', 'bash' },
+        },
+        topiary_json = {
+          command = 'topiary',
+          args = { 'format', '--language', 'json' },
+        },
+        topiary_ncl = {
+          command = 'topiary',
+          args = { 'format', '--language', 'nickel' },
+        },
+        topiary_css = {
+          command = 'topiary',
+          args = { 'format', '--language', 'css' },
         },
       },
     },
