@@ -609,6 +609,7 @@ require('lazy').setup({
           },
         },
       }
+      -- add nushell directly since mason doesn't support it
       require('lspconfig').nushell.setup {}
 
       -- Ensure the servers and tools above are installed
