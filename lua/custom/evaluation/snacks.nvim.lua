@@ -1,3 +1,4 @@
+-- TODO: add docs and prep to include this in your testing
 return {
   'folke/snacks.nvim',
   priority = 1000,

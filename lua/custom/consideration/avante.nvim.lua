@@ -1,3 +1,4 @@
+-- avante.nvim lets you use Neovim like Cursor
 -- TODO: before moving to evaluation check out blink.cmp config: https://github.com/yetone/avante.nvim#blinkcmp-users
 return {
   'yetone/avante.nvim',
