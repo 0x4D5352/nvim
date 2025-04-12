@@ -609,6 +609,7 @@ require('lazy').setup({
           },
         },
       }
+      require('lspconfig').nushell.setup {}
 
       -- Ensure the servers and tools above are installed
       --
