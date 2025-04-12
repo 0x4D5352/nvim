@@ -1,3 +1,4 @@
+-- venv-selector.nvim loads your python virtual environment into your LSP and DAP.
 return {
   'linux-cultist/venv-selector.nvim',
   dependencies = {

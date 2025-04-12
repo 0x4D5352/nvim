@@ -1,3 +1,4 @@
+-- zellij-nav.nvim integrates neovim and Zellij to allow navigation between neovim panes and zellij panes
 return {
   'swaits/zellij-nav.nvim',
   lazy = true,

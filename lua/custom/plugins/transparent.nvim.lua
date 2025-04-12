@@ -1,7 +1,4 @@
-if true then
-  return {}
-else
-  return {
-    'xiyaowong/transparent.nvim',
-  }
-end
+-- transparent.nvim enables transparency for your neovim session, to show your terminal BG
+return {
+  'xiyaowong/transparent.nvim',
+}

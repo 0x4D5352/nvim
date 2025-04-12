@@ -1,3 +1,4 @@
+-- obsidian.nvim converts Neovim into a secondary workspace for Obsidian vaults.
 return {
   'epwalsh/obsidian.nvim',
   version = '*', -- recommended, use latest release instead of latest commit
