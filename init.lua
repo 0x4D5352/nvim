@@ -68,8 +68,6 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
--- adjust conceallevel to work with obsidian.nvim
-vim.opt.conceallevel = 1
 -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
@@ -113,6 +111,9 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
 -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
+
+vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Scroll down by one page' })
+vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Scroll up by one page' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -345,6 +346,19 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+
+      -- my own additions - 0x4D5352
+      vim.keymap.set('n', '<leader>sq', builtin.registers, { desc = '[S]earch Registers' })
+      vim.keymap.set('n', '<leader>sc', builtin.commands, { desc = '[S]earch [c]ommands' })
+      vim.keymap.set('n', '<leader>sC', builtin.command_history, { desc = '[S]earch [C]ommand History' })
+      vim.keymap.set('n', '<leader>st', builtin.treesitter, { desc = '[S]earch [T]reesitter' })
+      vim.keymap.set('n', '<leader>sm', builtin.marks, { desc = '[S]earch [M]arks' })
+
+      -- LSP searches - 0x4D5352
+      vim.keymap.set('n', '<leader>sy', builtin.lsp_document_symbols, { desc = '[S]earch S[y]mbols' })
+      vim.keymap.set('n', '<leader>sD', builtin.lsp_definitions, { desc = '[S]earch [D]efinitions' })
+      vim.keymap.set('n', '<leader>sR', builtin.lsp_references, { desc = '[S]earch [R]eferences' })
+      -- vim.keymap.set('n', '<leader>sm', builtin.man_pages, { desc = '[S]earch [M]an Pages' }) -- doesn't seem to be showing up
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
@@ -873,6 +887,39 @@ require('lazy').setup({
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
+
+      -- [[ recommended additions based on mini.nvim docs ]] - 0x4D5352
+
+      -- Useful text editing operations:
+      --  - g= - evaluate text and replace with output
+      --  - gx - exchange text region
+      --  - gm - multiply (duplicate) text
+      --  - gr - replace text with register
+      --  - gs - sort text
+      require('mini.operators').setup()
+
+      -- General Workflow
+      -- Go forward/backward with square brackets
+      -- - [ + upper-suffix = go to first instance
+      -- - [ + lower-suffix = go to previous instance
+      -- - ] + lower-suffix = go to next instance
+      -- - ] + upper-suffix = go to last instance
+      -- e.g.
+      -- - [D - go to first diagnostic
+      -- - [b - go to previous buffer
+      -- - ]f - go to next file on disk
+      -- - ]C - go to last comment block
+      require('mini.bracketed').setup()
+      -- Navigate and manipulate filesystem (replacement for neotree)
+      -- require('mini.files').setup()
+      -- Pick anything
+      -- require('mini.pick').setup()
+
+      -- Appearance
+      -- Generate configurable color scheme
+      -- require('mini.hues').setup()
+      -- Icon provider
+      -- require('mini.icons').setup()
     end,
   },
   { -- Highlight, edit, and navigate code
@@ -882,7 +929,7 @@ require('lazy').setup({
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     dependencies = {
       -- NOTE:: IDK if this can be installed through ensure_installed, but the repo says to do it like so:
-      { 'nushell/tree-sitter-nu' },
+      { 'nushell/tree-sitter-nu' }, -- 0x4D5352
     },
     opts = {
       ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'nu', 'go' },
@@ -926,7 +973,7 @@ require('lazy').setup({
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   { import = 'custom.plugins' },
-  { import = 'custom.evaluation' },
+  { import = 'custom.evaluation' }, -- plugins i'm currently evaluating to see if I like or not
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
@@ -953,6 +1000,7 @@ require('lazy').setup({
     },
   },
 })
+-- NOTE: everything above this is part of lazy.nvim's setup!
 
 -- additional config
 -- NOTE: Ensures that when exiting NeoVim, Zellij returns to normal mode
@@ -960,6 +1008,8 @@ vim.api.nvim_create_autocmd('VimLeave', {
   pattern = '*',
   command = 'silent !zellij action switch-mode normal',
 })
+-- adjust conceallevel to work with obsidian.nvim -- 0x4D5352
+vim.opt.conceallevel = 1
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
