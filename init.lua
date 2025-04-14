@@ -112,6 +112,7 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
+-- personal keybinds - 0x4D5352
 vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Scroll down by one page' })
 vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Scroll up by one page' })
 
@@ -897,7 +898,7 @@ require('lazy').setup({
       --  - gr - replace text with register
       --  - gs - sort text
       require('mini.operators').setup()
-2
+
       -- General Workflow
       -- Go forward/backward with square brackets
       -- - [ + upper-suffix = go to first instance
