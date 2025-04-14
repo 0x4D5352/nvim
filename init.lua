@@ -355,9 +355,9 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sm', builtin.marks, { desc = '[S]earch [M]arks' })
 
       -- LSP searches - 0x4D5352
-      vim.keymap.set('n', '<leader>sy', builtin.lsp_document_symbols, { desc = '[S]earch S[y]mbols' })
-      vim.keymap.set('n', '<leader>sD', builtin.lsp_definitions, { desc = '[S]earch [D]efinitions' })
-      vim.keymap.set('n', '<leader>sR', builtin.lsp_references, { desc = '[S]earch [R]eferences' })
+      -- vim.keymap.set('n', '<leader>sy', builtin.lsp_document_symbols, { desc = '[S]earch S[y]mbols' })
+      -- vim.keymap.set('n', '<leader>sD', builtin.lsp_definitions, { desc = '[S]earch [D]efinitions' })
+      -- vim.keymap.set('n', '<leader>sR', builtin.lsp_references, { desc = '[S]earch [R]eferences' })
       -- vim.keymap.set('n', '<leader>sm', builtin.man_pages, { desc = '[S]earch [M]an Pages' }) -- doesn't seem to be showing up
 
       -- Slightly advanced example of overriding default behavior and theme
@@ -897,7 +897,7 @@ require('lazy').setup({
       --  - gr - replace text with register
       --  - gs - sort text
       require('mini.operators').setup()
-
+2
       -- General Workflow
       -- Go forward/backward with square brackets
       -- - [ + upper-suffix = go to first instance
