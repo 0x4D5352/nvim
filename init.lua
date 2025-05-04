@@ -115,6 +115,8 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- personal keybinds - 0x4D5352
 vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Scroll down by one page' })
 vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Scroll up by one page' })
+-- TODO: check official docs for pico8.vim and fix: https://github.com/Bakudankun/PICO-8.vim/blob/master/doc/pico8.txt
+-- vim.keymap.set('n', '<leader>p8', ':Pico8Run<CR>', { desc = 'Run in Pico 8' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
