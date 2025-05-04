@@ -22,7 +22,7 @@ return {
     workspaces = {
       {
         name = 'obsidian-vault',
-        path = '~/workspace/github.com/0x4D5352/obsidian-vault',
+        path = '~/Library/Mobile Documents/iCloud~md~obsidian/obsidian-vault',
       },
     },
   },
